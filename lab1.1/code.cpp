@@ -78,7 +78,7 @@ int main(int argc, char** argv){
 
     // Write calculations to file
     std::ofstream dataSheet;
-    dataSheet.open ("./lab1/data.xlsx");
+    dataSheet.open ("data.xlsx");
     for(int i = 0; i < amountOfPoints; i++) {
         dataSheet << xt[i].x << "\t" << xt[i].y << '\n';
     }
