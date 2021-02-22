@@ -7,6 +7,8 @@ int main(int argc, char **argv)
     int W = 1500;     // Critical frequency
     int N = 256;      // Discrete vidclick
     double tau = 5.0; // The offset
+    // The check is conducted to assert having all the three needed arguments
+    // if the program is going to be used with a different data set
     if (argc == 4)
     {
         n = convertToInt(argv[1], sizeof(argv[1]));
