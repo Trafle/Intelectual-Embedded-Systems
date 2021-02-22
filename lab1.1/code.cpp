@@ -16,7 +16,6 @@ int convertToInt(char *a, int size)
 
 struct Point
 {
-
     double x = 0.0;
     double y = 0.0;
 
@@ -29,7 +28,6 @@ struct Point
 
 int main(int argc, char **argv)
 {
-
     // init variables
     int n = 10;   // Harmonica
     int W = 1500; // Critical frequency
@@ -46,11 +44,7 @@ int main(int argc, char **argv)
     std::uniform_real_distribution<double> amp_and_fi(0, 1);
 
     // Init array of Point's
-    const float T = 0.15; // Time of signal in seconds
-    const double stepSize = 0.000005;
-    int div = T / stepSize;
-    const int amountOfPoints = div;
-    Point xt[amountOfPoints];
+    Point xt[N];
 
     // Iterate through the several harmonics
     for (int w = W / n; w <= W; w += W / n)
@@ -59,9 +53,9 @@ int main(int argc, char **argv)
         double fi = amp_and_fi(generator);
 
         // Iterate through one harmonica
-        for (int t = 0; t < amountOfPoints; t += 1)
+        for (int t = 0; t < N; t += 1)
         {
-            double x = t * stepSize;
+            double x = t;
             xt[t].x = x;
             double y = A * sin(w * x + fi);
             xt[t].y += y;
@@ -70,27 +64,27 @@ int main(int argc, char **argv)
 
     // Calculating mathematical expectation
     double sumOfPoints = 0.0;
-    for (int i = 0; i < amountOfPoints; i++)
+    for (int i = 0; i < N; i++)
     {
         sumOfPoints += xt[i].y;
     }
-    const double mathematicalExpectation = sumOfPoints / amountOfPoints;
+    const double mathematicalExpectation = sumOfPoints / N;
 
     // Calculating dispersion
     double sumOfDiffs = 0.0;
-    for (int i = 0; i < amountOfPoints; i++)
+    for (int i = 0; i < N; i++)
     {
         sumOfDiffs += (xt[i].y - mathematicalExpectation) * (xt[i].y - mathematicalExpectation);
     }
-    const double dispersion = sumOfDiffs / amountOfPoints;
+    const double dispersion = sumOfDiffs / N;
 
     std::cout << "Mathematical Expectation: " << mathematicalExpectation << '\n';
     std::cout << "Dispersion: " << dispersion << '\n';
 
     // Write calculations to file
     std::ofstream dataSheet;
-    dataSheet.open("data.xlsx");
-    for (int i = 0; i < amountOfPoints; i++)
+    dataSheet.open("lab1.2/data.xlsx");
+    for (int i = 0; i < N; i++)
     {
         dataSheet << xt[i].x << "\t" << xt[i].y << '\n';
     }

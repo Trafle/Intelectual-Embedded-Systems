@@ -1,10 +1,9 @@
-data.xlsx
-check
 check.cpp
 check.out
-cycle.cpp
-IES_labl_1_1
-IES_labl_1_1.out
-openmp.cpp
-some_fun.cpp
+/lab1.1/code
+/lab1.1/data.xlsx
+lab1.2/code
+lab1.2/data.xlsx
+.vscode
+settings.json
 workspace.code-workspace
