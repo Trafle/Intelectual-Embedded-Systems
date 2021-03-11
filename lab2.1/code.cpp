@@ -2,14 +2,14 @@
 #include <cmath>
 #include <complex>
 #include <iostream>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
     // init variables
-    int n = 10;       // Harmonica
-    int W = 1500;     // Critical frequency
-    int N = 256;      // Discrete vidclick
-    double tau = 5.0; // The offset
+    int n = 10;   // Harmonica
+    int W = 1500; // Critical frequency
+    int N = 256;  // Discrete vidclick
     // The check is conducted to assert having all the three needed arguments
     // if the program is going to be used with a different data set
     if (argc == 4)
@@ -22,9 +22,9 @@ int main(int argc, char **argv)
     // Init array of Point's
     Point *xt = makeFunction(n, W, N);
 
-    // Point Furr[256] = {0};
     std::complex<int> complexNum(0, 1);
-    std::complex<double> Furr[256] = {0};
+    std::complex<double> Furr[N];
+    memset(Furr, 0, N * sizeof(std::complex<double>));
 
     for (int p = 0; p < N; p++)
     {
@@ -34,7 +34,8 @@ int main(int argc, char **argv)
         }
     }
 
-    double A[256] = {0};
+    double A[N];
+    memset(A, 0, N * sizeof(double));
 
     for (int i = 0; i < N; i++)
     {
@@ -52,8 +53,3 @@ int main(int argc, char **argv)
 
     return 0;
 }
-
-// void plotFunction(std::complex complexNum)
-// {
-//     std::abs(comlexNum);
-// }
