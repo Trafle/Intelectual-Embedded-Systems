@@ -1,5 +1,5 @@
 DFT:
-![DFT Graph](pictures/Graph.png)
+![DFT Graph](pictures/DFT.png)
 
 DFF:
-![DFF Graph](pictures/Graph.png)
+![DFF Graph](pictures/DFF.png)
