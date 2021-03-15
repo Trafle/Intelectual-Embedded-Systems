@@ -81,6 +81,7 @@ void writeCalcsToFile(Point *xt, int N, std::string fileName)
   {
     dataSheet << xt[i].x << "\t" << xt[i].y << '\n';
   }
+  dataSheet.close();
 }
 
 Point *mutualCorrelation(Point *firstFunc, Point *secondFunc, int N)
