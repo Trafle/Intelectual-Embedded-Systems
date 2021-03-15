@@ -22,15 +22,20 @@ int main(int argc, char **argv)
     // Init array of Point's
     Point *xt = makeFunction(n, W, N);
 
-    std::complex<int> complexNum(0, 1);
+    std::complex<double> complexNum(0.0, 1.0);
     std::complex<double> Furr[N];
     memset(Furr, 0, N * sizeof(std::complex<double>));
+
+    for (std::size_t i = 0; i < N; i++)
+    {
+        Furr[i] = 0;
+    }
 
     for (int p = 0; p < N; p++)
     {
         for (int k = 0; k < N; k++)
         {
-            Furr[p] += xt[k].y * (cos(2 * M_PI * p * k / N) - sin(2 * M_PI * p * k / N) * complexNum.imag());
+            Furr[p] = Furr[p] + xt[k].y * ((cos(2 * M_PI * p * k / N)) - (sin(2 * M_PI * p * k / N)) * complexNum);
         }
     }
 
@@ -43,11 +48,19 @@ int main(int argc, char **argv)
         A[i] = 2 * A[i] / N;
     }
 
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << "A[" << i << "]: " << A[i] << std::endl;
+        std::cout << "Furr[" << i << "]: " << Furr[i] << std::endl;
+    }
+
     Point *toShow = makeFunction(n, W, N);
     for (int i = 0; i < N; i++)
     {
         toShow[i].y = A[i];
     }
+
+    std::cout << "repeated" << std::endl;
 
     writeCalcsToFile(toShow, N, "complex");
 

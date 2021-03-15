@@ -29,7 +29,7 @@ struct Point
 
 Point *makeFunction(int n, int W, int N)
 {
-  Point *xt = reinterpret_cast<Point *>(malloc(sizeof(Point) * N + 1));
+  Point *xt = reinterpret_cast<Point *>(malloc(sizeof(Point) * N));
 
   // Init randomizer
   std::default_random_engine generator;
@@ -42,7 +42,7 @@ Point *makeFunction(int n, int W, int N)
     double fi = amp_and_fi(generator);
 
     // Iterate through one harmonica
-    for (int x = 0; x < N; x++)
+    for (int x = 0; x < N; x += 1)
     {
       xt[x].x = (double)x;
       double y = A * sin(w * x + fi);
@@ -76,7 +76,7 @@ double calcDispersion(Point *xt, int N, double mathematicalExpectation)
 void writeCalcsToFile(Point *xt, int N, std::string fileName)
 {
   std::ofstream dataSheet;
-  dataSheet.open("lab2.1/" + fileName + ".xlsx");
+  dataSheet.open("lab2.2/" + fileName + ".xlsx");
   for (int i = 0; i < N; i++)
   {
     dataSheet << xt[i].x << "\t" << xt[i].y << '\n';
