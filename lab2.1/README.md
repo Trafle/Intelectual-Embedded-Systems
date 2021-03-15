@@ -1,1 +1,2 @@
-![DFT Graph](pictures/Graph.png)
+DFT:
+![DFT Graph](pictures/DFT.png)
