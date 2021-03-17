@@ -1,3 +1,3 @@
 Screenshots:
-![Even](pictures/even.png)
+![Big](pictures/big.png)
 ![Prime](pictures/prime.png)
