@@ -1,3 +1,3 @@
 Screenshots:
 ![Big](pictures/big.png)
-![Prime](pictures/prime.png)
+![Prime](pictures/primeNum.png)
