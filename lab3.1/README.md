@@ -21,6 +21,6 @@ fun fermatFactorization(n: Int): List<Int>? {
 }
 ```
 
-### Screenshots:
+## Screenshots:
 ![Big](pictures/big.png)
 ![Prime](pictures/primeNum.png)
