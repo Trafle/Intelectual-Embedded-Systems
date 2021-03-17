@@ -6,6 +6,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,10 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         calcBut.setOnClickListener { v ->
             val original = input.text.toString().toInt()
-            val factorsArray = factorize(original)
+            val factorsArray = fermatFactorization(original)
 
             if (factorsArray == null) {
-                Toast.makeText(applicationContext,"wrong number",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext,"bad argument",Toast.LENGTH_SHORT).show()
+                output.text = original.toString()
             } else {
                 output.text = factorsArray.joinToString()
             }
@@ -30,30 +34,21 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun factorize(original: Int): MutableList<Int>? {
+fun fermatFactorization(n: Int): List<Int>? {
+    if (n % 2 == 0) return listOf(2, n / 2)
+    if (n <= 0) return null
 
-    // Return if the input number is up to 3
-    if (original == 0 || original == 1 || original == 2 || original == 3) return mutableListOf(original)
-    if (original < 0) return null
+    var a = ceil(sqrt(n.toDouble()))
+    var b = 0.0
 
-    // Initiate the prime factors array
-    val factors = mutableListOf<Int>()
-    var changer: Int = original
+    // if n is a perfect root, then both its square roots are its factors
+    if (a * a == n.toDouble()) return listOf(a.toInt(), a.toInt())
 
-    // Iterate through to half of the original number and find all prime factors
-    var i: Int = 2
-    while (i <= original / 2) {
-
-        if (changer % i == 0) {
-            factors.add(i)
-            changer /= i
-            if (changer == 1) return factors
-            continue
-        } else {
-            i++
-        }
+    while(true) {
+        val b1 = a * a - n
+        b = floor(sqrt(b1))
+        if (b1 == b * b) break else a++
     }
 
-    // If found factors - return them. Otherwise - original is a prime number
-    return if (factors.isEmpty()) mutableListOf(original) else factors
+    return listOf((a - b).toInt(), (a + b).toInt())
 }
