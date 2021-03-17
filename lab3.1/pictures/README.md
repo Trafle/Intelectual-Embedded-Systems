@@ -1,3 +1,3 @@
 just pics
-![Big](pictures/big.png)
-![Prime](pictures/primeNum.png)
+![Big](big.png)
+![Prime](primeNum.png)
