@@ -8,10 +8,18 @@ const double PI = 3.141592653589793238460;
 typedef std::complex<double> Complex;
 typedef std::valarray<Complex> CArray;
 
-// Cooley–Tukey FFT (in-place, divide-and-conquer)
-// Higher memory requirements and redundancy although more intuitive
 void fft(CArray &x)
 {
+
+  std::cout << "у функції fft() як аргумент маємо масив x[]\n";
+  std::cout << "Розділяємо його на масиви, що репрезентують його парні та непарні індекси, odd[] та even[] відповідно\n";
+  std::cout << "Рекурсивно виклиаємо цю ж функцію з аргмуентом even[] а потім з аргументом odd[], щоб ініціалізувати прохід вглибину, до моменту, коли ми отримаємо ";
+  std::cout << "перший return, себто коли розмір аргументу функції буде <= 1.\n";
+  std::cout << "Опісля виконується аналогічний код з odd, тому що його ми викликали відразу після fft(even)\n";
+  std::cout << "Наступним кроком ми ітеруємося по масиву до його половини та обчислюємо комплексне число t за формулою t = polar(1.0, -2 * PI * k / N) * odd[i] ";
+  std::cout << "(де і це індекс ітератора) та комбінуємо значення в першу половину масиву за формулою even[i] + t , а вдругу його половину - за формулою even[i] - t.\n";
+  std::cout << "Опісля завершення стеку викликів функції, маємо результат.\n";
+
   const size_t N = x.size();
   if (N <= 1)
     return;
