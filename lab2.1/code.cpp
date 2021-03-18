@@ -37,11 +37,12 @@ int main(int argc, char **argv)
     {
         for (int k = 0; k < N; k++)
         {
-            Furr[p] = Furr[p] + xt[k].y * ((cos(2 * M_PI * p * k / N)) - (sin(2 * M_PI * p * k / N)) * complexNum);
+            Furr[p] += Furr[p] + xt[k].y * ((cos(2 * M_PI * p * k / N)) - (sin(2 * M_PI * p * k / N)) * complexNum);
             WPK[p][k] = std::abs(Furr[p]);
         }
     }
 
+    // Write the table into file
     std::ofstream wpkTable;
     wpkTable.open("lab2.1/wpkTable.txt");
     for (int i = 0; i < N; i++)
