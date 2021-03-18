@@ -53,6 +53,7 @@ int main(int argc, char **argv)
         }
         wpkTable << std::endl;
     }
+    wpkTable.close();
 
     double A[N];
     memset(A, 0, N * sizeof(double));
