@@ -8,6 +8,8 @@ import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 import kotlin.math.ceil
 import kotlin.math.floor
+import java.util.Timer
+import kotlin.concurrent.schedule
 import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
@@ -19,9 +21,16 @@ class MainActivity : AppCompatActivity() {
         val output = findViewById<TextView>(R.id.outputText)
         val calcBut = findViewById<Button>(R.id.calcBut)
 
-        calcBut.setOnClickListener { v ->
-            val original = input.text.toString().toInt()
+        calcBut.setOnClickListener { _ ->
+            val original = input.text.toString().toLong()
+
+            val timer = Timer("SettingUp", false).schedule(3000) {
+                error("took too long")
+            }
+
             val factorsArray = fermatFactorization(original)
+
+            timer.cancel()
 
             if (factorsArray == null) {
                 Toast.makeText(applicationContext,"bad argument",Toast.LENGTH_SHORT).show()
@@ -34,29 +43,20 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun fermatFactorization(n: Int): List<Int>? {
-    // У функції fermatFactorization з аргументом n, відразу робимо перевірку,
-    // на те чи число парне. Якщо так - повертаємо два фактори [2, n / 2]
-    if (n % 2 == 0) return listOf(2, n / 2)
-    if (n <= 0) return null
+fun fermatFactorization(n: Long): List<Long>? {
+    if (n % 2 == 0L) return listOf(2L, n / 2L)
+    if (n <= 0L) return null
 
     var a = ceil(sqrt(n.toDouble()))
     var b = 0.0
 
-    // Далі ми знаходимо корінь з n (назвемо його a) та, якщо це ціле число,
-    // то повертаємо два фактори - [a, a].
-    if (a * a == n.toDouble()) return listOf(a.toInt(), a.toInt())
+    if (a * a == n.toDouble()) return listOf(a.toLong(), a.toLong())
 
-    // Якщо ж це число неціле, то шукаємо таке ціле число a (що більше за теперішнє)
-    // котре за формулою a^2 - n дасть число з котрого можна здобути цілий корінь
     while(true) {
         val b1 = a * a - n
         b = floor(sqrt(b1))
-        // Цей цілий корінь назвемо b.
         if (b1 == b * b) break else a++
     }
 
-    // Фактори, котрі функція повинна повернути знаходяться за формулами
-    // a + b та a - b. (виводиться математично з n = a^2 + b^2)
-    return listOf((a - b).toInt(), (a + b).toInt())
+    return listOf((a - b).toLong(), (a + b).toLong())
 }
